@@ -54,12 +54,22 @@ const factsList = document.querySelector(".facts-list");
 factsList.innerHTML = "";
 
 async function loadFacts() {
-  const res = await fetch("API_URL", {
+  const supabaseUrl = "https://acemzouekdsjbyzsxftg.supabase.co";
+  const supabaseKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjZW16b3Vla2RzamJ5enN4ZnRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI1NjU2NDYsImV4cCI6MjA1ODE0MTY0Nn0.v0RVfg4YP4QdBoCPx1EnkKIxMIwaVU05YgJVtbWHBTE";
+
+  // Use the correct endpoint
+  const res = await fetch(`${supabaseUrl}/rest/v1/facts`, {
     headers: {
-      apikey: "API_KEY",
-      authorization: "API_KEY",
+      apikey: supabaseKey,
+      authorization: `Bearer ${supabaseKey}`,
     },
   });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
   const data = await res.json();
   console.log(data);
   createFactsList(data);
