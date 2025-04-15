@@ -64,7 +64,6 @@ async function loadFacts() {
       authorization: `Bearer ${supabaseKey}`,
     },
   });
-  
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
